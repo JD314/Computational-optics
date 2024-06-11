@@ -112,7 +112,7 @@ def corr2(A,B):
     cc=(((A-torch.mean(A))*((B-torch.mean(B)))).sum())/(torch.sqrt((A-torch.mean(A)).pow(2).sum()*(B-torch.mean(B)).pow(2).sum()))
     return cc
 
-def campo():
+def campo_de_prueba():
     """"Campo óptico de prueba"""
     objeto = np.array([
        [0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0],
@@ -133,7 +133,7 @@ def campo():
     campo = np.zeros(parameters.resolution)
     
     # Shape the object in the optic field
-    campo = fusion(campo, img, -parameters.object_size[0]/2-100 , 0)
+    campo = fusion(campo, img, -parameters.object_size[0]/2-80 , 0)
 
     # -- Add random phase mask --
     random_phase = np.random.rand(parameters.resolution[0], parameters.resolution[1]) * 2 * np.pi # máscara de fase aleatoria (rads)
@@ -171,3 +171,4 @@ def field_from_image(img_path, sep=80):
     
     return campo_optico
 
+bin = np.vectorize( lambda x: 0 if (0<x<=np.pi) else (1 if  np.pi < x < 2*np.pi else x) ) 
