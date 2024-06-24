@@ -5,7 +5,7 @@
 imagenes/
 # -- files --
 *.bmp
-
+*.ipynb
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
