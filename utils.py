@@ -283,7 +283,7 @@ def bin_tensor(x):
 
 bin = np.vectorize( lambda x: 0 if (0<x<=np.pi) else (1 if  np.pi < x < 2*np.pi else x) ) 
 
-def masks(height, weight, number):
+def masks(height=1200, weight=2048, number=1):
     """
     Create a series of identical random phase masks.
 
@@ -331,3 +331,26 @@ def cut_image(optic_field):
     ROI = tajada(optic_field, np.zeros(parameters.object_size), parameters.coord[0], parameters.coord[1])
     
     return torch.abs(ROI)
+
+def normalize_angle(phase):
+    """
+    Normalizes angles to a specified range [0, 2π).
+
+    This function takes a tensor of `phase` angles and normalizes them to be within the range [0, 2π).
+    It uses the modulus operation (`torch.mod`) to adjust the angles.
+
+    Parameters:
+    -----------
+    phase : torch.Tensor
+        Tensor containing the angles to be normalized.
+
+    Returns:
+    --------
+    torch.Tensor
+        Tensor containing the angles normalized to the range [0, 2π).
+    """
+    return torch.remainder(phase, 2*np.pi)
+    
+def normalize_image(img):
+    pass
+
